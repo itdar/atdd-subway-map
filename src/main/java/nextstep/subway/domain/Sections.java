@@ -15,11 +15,12 @@ public class Sections {
     private List<Section> sections = new ArrayList<>();
 
     public void add(Section section) {
-        sections.add(section);
-    }
+        if (sections.isEmpty()) {
+            validateUpStation(section);
+            validateDownStation(section);
+        }
 
-    public boolean isEmpty() {
-        return sections.isEmpty();
+        sections.add(section);
     }
 
     public void validateUpStation(Section section) {
@@ -36,14 +37,6 @@ public class Sections {
                 || section1.getDownStation().getId().equals(section.getDownStation().getId()))) {
             throw new IllegalArgumentException("등록하는 구간의 하행역이 기존 라인에 등록된 역임.");
         }
-    }
-
-    public int size() {
-        return sections.size();
-    }
-
-    public Section get(int index) {
-        return sections.get(index);
     }
 
     public List<Section> get() {

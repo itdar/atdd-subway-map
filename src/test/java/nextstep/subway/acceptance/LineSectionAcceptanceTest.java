@@ -1,7 +1,8 @@
 package nextstep.subway.acceptance;
 
+import static nextstep.subway.utils.RestAssuredCRUD.응답결과가_BAD_REQUEST;
+import static nextstep.subway.utils.RestAssuredCRUD.응답결과가_OK;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -14,7 +15,6 @@ import nextstep.subway.applicaion.dto.LineResponse;
 import nextstep.subway.applicaion.dto.SectionRequest;
 import nextstep.subway.applicaion.dto.StationRequest;
 import nextstep.subway.applicaion.dto.StationResponse;
-import nextstep.subway.utils.RestAssuredCRUD;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,14 +42,6 @@ public class LineSectionAcceptanceTest extends AcceptanceTest{
         일호선 = LineAcceptanceTest.지하철_노선을_등록한다(lineRequest).as(LineResponse.class);
     }
 
-    /**
-     지하철 노선 생성 시 필요한 인자 추가하기
-     지하철 노선에 구간을 등록하는 기능 구현
-     지하철 노선에 구간을 제거하는 기능 구현
-     지하철 노선에 등록된 구간을 통해 역 목록을 조회하는 기능 구현
-     구간 등록 / 제거 시 예외 케이스에 대한 인수 테스트 작성
-     */
-
     @DisplayName("지하철 노선에 구간을 추가한 후 구간을 조회해서 확인한다.")
     @Test
     void 지하철_노선에_구간을_등록하고_조회해서_확인한다() {
@@ -68,7 +60,7 @@ public class LineSectionAcceptanceTest extends AcceptanceTest{
         원하는_역들이_들어있다(노선역조회결과, Arrays.asList(일호선역1, 일호선역2));
     }
 
-    @DisplayName("지하철 노선에 추가하는 새로운 구간의 상행역이 기존 하행역과 맞지 않는다.")
+    @DisplayName("지하철 노선에 추가하는 새로운 구간의 상행역이 기존 하행역과 같이 않으면 등록 할 수 없다.")
     @Test
     void 지하철_노선에_구간을_등록_실패한다_1() {
         // given
@@ -80,7 +72,7 @@ public class LineSectionAcceptanceTest extends AcceptanceTest{
         응답결과가_BAD_REQUEST(구간등록결과);
     }
 
-    @DisplayName("지하철 노선에 추가하는 새로운 구간의 하행역이 현재 등록되어 있는 역이다.")
+    @DisplayName("지하철 노선에 추가하는 새로운 구간의 하행역이 현재 이미 등록되어 있는 역이면 등록 할 수 없다.")
     @Test
     void 지하철_노선에_구간을_등록_실패한다_2() {
         // given

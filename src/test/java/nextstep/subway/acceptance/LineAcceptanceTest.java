@@ -1,7 +1,10 @@
 package nextstep.subway.acceptance;
 
+import static nextstep.subway.utils.RestAssuredCRUD.응답결과가_BAD_REQUEST;
+import static nextstep.subway.utils.RestAssuredCRUD.응답결과가_CREATED;
+import static nextstep.subway.utils.RestAssuredCRUD.응답결과가_NO_CONTENT;
+import static nextstep.subway.utils.RestAssuredCRUD.응답결과가_OK;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -10,12 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import nextstep.subway.applicaion.dto.LineRequest;
 import nextstep.subway.applicaion.dto.LineResponse;
-import nextstep.subway.exception.DuplicatedElementException;
 import nextstep.subway.utils.RestAssuredCRUD;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
 
 @DisplayName("지하철 노선 관리 기능")
 class LineAcceptanceTest extends AcceptanceTest {

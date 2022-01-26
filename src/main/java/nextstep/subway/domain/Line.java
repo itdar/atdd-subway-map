@@ -44,31 +44,16 @@ public class Line extends BaseEntity {
         return color;
     }
 
-    public List<Section> getSections() {
-        return sections.get();
-    }
-
     public void update(Line line) {
         this.name = line.getName();
         this.color = line.getColor();
     }
 
     public void addSection(Section section) {
-        validateAddable(section);
+        sortSections();
 
         sections.add(section);
         section.setLine(this);
-    }
-
-    private void validateAddable(Section section) {
-        sortSections();
-
-        if (sections.isEmpty()) {
-            return;
-        }
-
-        sections.validateUpStation(section);
-        sections.validateDownStation(section);
     }
 
     public List<Station> getStations() {
